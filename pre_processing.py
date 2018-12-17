@@ -1,13 +1,11 @@
 import statistics as s
 
-
-
 # Taking a dictionary
 from utilities import dict_check
 
 
 def estimators(dataset):
-    dict_check('estimators',dataset)
+    dict_check('estimators', dataset)
     print('Mean: {}, Variance: {} '.format(
         s.mean(dataset.values()),
         s.stdev(dataset.values(), s.mean(dataset.values()))
@@ -31,13 +29,21 @@ def process_conditions(dataset):
     return conditions_instances
 
 
-
 # dictionary type user
 def data_pruning(dataset, threshold):
-    if type(dataset) is not dict: raise TypeError(
-        'data_pruning requires a dict as input: you inserted a {}'.format(type(dataset)))
+    print('Threshold: {} '.format(threshold))
+    dict_check('data_pruning', dataset)
     pruned = {}
     for i in dataset:
-        if dataset[i] > 6: pruned[i] = dataset[i]
+        if dataset[i] > threshold: pruned[i] = dataset[i]
     print('{} has been pruned'.format(len(dataset) - len(pruned)))
     return pruned
+
+
+def percentage(dataset):
+    dict_check('percentage', dataset)
+    tot = sum(list(dataset.values()))
+    for i in dataset:
+        dataset[i] = dataset[i] / tot * 100
+        # print(dataset[i])
+    return dataset
