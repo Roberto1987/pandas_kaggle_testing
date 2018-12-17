@@ -1,13 +1,11 @@
 import statistics as s
 
 
-# Check if the value is of dict type
-def dict_check(func_name, var):
-    if type(var) is not dict: raise TypeError(
-        '{} requires a dict as input: you inserted a {}'.format(var, type(var)))
-
 
 # Taking a dictionary
+from utilities import dict_check
+
+
 def estimators(dataset):
     dict_check('estimators',dataset)
     print('Mean: {}, Variance: {} '.format(
@@ -33,30 +31,6 @@ def process_conditions(dataset):
     return conditions_instances
 
 
-def spacing(n=10):
-    for i in range(0, n):
-        print('-', end='')
-    print()
-
-
-def vertical_print(x):
-    spacing()
-    for i in x:
-        print(i)
-    spacing()
-
-
-def field_variety(x):
-    spacing()
-    print(x.name)
-    spacing()
-    print(len(x.unique()))
-    spacing()
-
-
-def extract_threshold(dataset):
-    pass
-
 
 # dictionary type user
 def data_pruning(dataset, threshold):
@@ -66,5 +40,4 @@ def data_pruning(dataset, threshold):
     for i in dataset:
         if dataset[i] > 6: pruned[i] = dataset[i]
     print('{} has been pruned'.format(len(dataset) - len(pruned)))
-    estimators(pruned)
     return pruned

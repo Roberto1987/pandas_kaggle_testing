@@ -1,4 +1,5 @@
 import pandas as pd
+from utilities import *
 
 from pre_processing import *
 from visualization import *
