@@ -1,6 +1,7 @@
 import statistics as s
 
-# Taking a dictionary
+from pandas import DataFrame
+
 from utilities import dict_check
 
 
@@ -16,7 +17,7 @@ def estimators(dataset):
 
 
 # noinspection PyBroadException
-def process_conditions(dataset):
+def process_conditions(dataset: DataFrame):
     conditions = list(dataset['condition'].unique())
     conditions_instances = {}
     for i in conditions:
@@ -25,7 +26,7 @@ def process_conditions(dataset):
             conditions_instances[i] = len(dataset[dataset['condition'] == i])
         except:
             print('row {} not correctly elaborated'.format(i))
-    estimators(conditions_instances)
+    estimators(conditions_instances) # Printing some estimators
     return conditions_instances
 
 
@@ -35,12 +36,14 @@ def data_pruning(dataset, threshold):
     dict_check('data_pruning', dataset)
     pruned = {}
     for i in dataset:
-        if dataset[i] > threshold: pruned[i] = dataset[i]
+        if dataset[i] >= threshold:
+            pruned[i] = dataset[i]
+            print(dataset[i])
     print('{} has been pruned'.format(len(dataset) - len(pruned)))
     return pruned
 
 
-def percentage(dataset):
+def percentage(dataset: dict):
     dict_check('percentage', dataset)
     tot = sum(list(dataset.values()))
     for i in dataset:
